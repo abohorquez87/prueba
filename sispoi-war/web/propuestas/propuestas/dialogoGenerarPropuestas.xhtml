@@ -1,0 +1,119 @@
+<f:view contentType="text/html"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <script type="text/javascript">
+    </script>
+    <style type="text/css"/>
+
+    <h:panelGrid id="displaySeguimiento" class="facccordion" columns="14" cellpadding="4" style="margin: auto;" >
+            <p:tab title="">
+                <div class="ui-grid  ui-grid-responsive">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2 contentDiv margintop">
+                            <h:outputText value="Pliego:" class="paddingleft"/>
+                        </div>
+                        <div class="ui-grid-col-2 contentDiv">
+                            <p:selectOneMenu id="pliego" onchange="PF('tablaPropuestasGeneradas').filter()" 
+                                    value="#{pliegoAdministrado.entidadSeleccionada}"
+                                    style="width:200px" 
+                                    converter="pliegoConvertidor">
+                                <f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{pliegoAdministrado.entidades}" 
+                                    var="pliego" 
+                                    itemValue="#{pliego}"
+                                    itemLabel="#{pliego.txtPliego}"/>  
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="ui-grid-col-1 contentDiv margintop"/>
+                        <div class="ui-grid-col-2 contentDiv margintop"/>
+
+                        <div class="ui-grid-col-2 contentDiv margintop">
+                            <h:outputText value="Unidad Ejecutora:" class="paddingleft"/>
+                        </div>
+                        <div class="ui-grid-col-2 contentDiv">
+                            <p:selectOneMenu id="unidadEjecutora" onchange="PF('tablaPropuestasGeneradas').filter()" 
+                                    value="#{unidadEjecutoraAdministrado.entidadSeleccionada}"
+                                    style="width:200px" 
+                                    converter="unidadEjecutoraConvertidor">
+                                <f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{unidadEjecutoraAdministrado.entidades}" 
+                                    var="unidad" 
+                                    itemValue="#{unidad}"
+                                    itemLabel="#{unidad.txtUnidadEjecutora}"/>  
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2 contentDiv margintop">
+                            <h:outputText value="Año Ejecucion:" class="paddingleft"/>
+                        </div>
+                        <div class="ui-grid-col-2 contentDiv">
+                            <p:selectOneMenu id="periodo" onchange="PF('tablaPropuestasGeneradas').filter()" 
+                                             value="#{periodoAdministrado.entidadSeleccionada}"
+                                    style="width:200px" 
+                                    converter="periodoConvertidor">
+                                <f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{periodoAdministrado.entidades}" 
+                                    var="periodo" 
+                                    itemValue="#{periodo}"
+                                    itemLabel="#{periodo.txtPeriodo}" />  
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+                       
+                    <div id="boxshadowinside">
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-12" align="right">
+                                
+                            </div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-12 contentDiv">
+                                <p:dataTable id="tablaPropuestasGeneradas" paginatorPosition="bottom" var="item" editable="true" 
+                                             value="#{programacionAdministrado.getEntidadesRegistradas(pliegoAdministrado.entidadSeleccionada, unidadEjecutoraAdministrado.entidadSeleccionada, periodoAdministrado.entidadSeleccionada)}" 
+                                             rows="10" paginator="true" rowsPerPageTemplate="5,10,15"
+                                             rowStyleClass="#{item.flgActivo eq 0 ? 'colored' : null}"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                    <p:column headerText="ACCIONES" style="width: 50px;">  
+                                        <p:commandButton value=""  actionListener="#{programacionAdministrado.anular(item)}" title="Anular" icon="ui-icon-trash">
+                                            <p:confirm header="Confirmacion" message="Se anulara la programacion seleccionada, desea continuar?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                    </p:column>
+
+                                    <p:column headerText="AÑO EJECUCION" style="width:60px; text-align:center">
+                                        <h:outputText value="#{item.periodo.txtPeriodo}"  >
+                                            <f:convertDateTime pattern="yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="UNIDAD EJECUTORA" style="width:600px; text-align:center">
+                                        <h:outputText value="#{item.unidadEjecutora.txtUnidadEjecutora}" />
+                                    </p:column>
+
+                                    <p:column headerText="ESTADO" style="width:80px; text-align:center">
+                                        <h:outputText value="#{atencionProgramacionAdministrado.getActivo(item.atencionProgramacionList).estadoProgramacion.txtEtdoProgramacion}" />
+                                    </p:column>
+                                    
+                                    <p:column headerText="ACTIVO" filterBy="#{item.flgActivo}" filterMatchMode="contains" style=" text-align:center">
+                                        <f:facet name="filter">
+                                            <p:selectOneMenu onchange="PF('tablaPropuestasGeneradas').filter()" style="width:70px">
+                                                <f:selectItem itemLabel="Todos" itemValue="" noSelectionOption="true"/>
+                                                <f:selectItem itemLabel="Activo" itemValue="1" />
+                                                <f:selectItem itemLabel="Inactivo" itemValue="0" />
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                        <h:outputText value="#{item.flgActivo != 1? 'Inactivo':'Activo'}">
+                                            <f:converter converterId="javax.faces.Character" />                                    
+                                        </h:outputText>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p:tab>
+    </h:panelGrid>
+</f:view>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="sispoi-ejbPU" transaction-type="JTA">
+    <jta-data-source>sispoiDS</jta-data-source>
+    <class>pe.gob.mimp.sispoi.modelo.AccionEstrategica</class>
+    <class>pe.gob.mimp.sispoi.modelo.ActividadProducto</class>
+    <class>pe.gob.mimp.sispoi.modelo.ActividadProgramada</class>
+    <class>pe.gob.mimp.sispoi.modelo.AsignacionActividad</class>
+    <class>pe.gob.mimp.sispoi.modelo.AtencionProgramacion</class>
+    <class>pe.gob.mimp.sispoi.modelo.CategoriaPresupuestal</class>
+    <class>pe.gob.mimp.sispoi.modelo.Departamento</class>
+    <class>pe.gob.mimp.sispoi.modelo.DetalleActProgramada</class>
+    <class>pe.gob.mimp.sispoi.modelo.Direccion</class>
+    <class>pe.gob.mimp.sispoi.modelo.Distrito</class>
+    <class>pe.gob.mimp.sispoi.modelo.DivisionFuncional</class>
+    <class>pe.gob.mimp.sispoi.modelo.EstadoActProgramada</class>
+    <class>pe.gob.mimp.sispoi.modelo.EstadoProgramacion</class>
+    <class>pe.gob.mimp.sispoi.modelo.Funcion</class>
+    <class>pe.gob.mimp.sispoi.modelo.GrupoFuncional</class>
+    <class>pe.gob.mimp.sispoi.modelo.Logro</class>
+    <class>pe.gob.mimp.sispoi.modelo.Medio</class>
+    <class>pe.gob.mimp.sispoi.modelo.Mes</class>
+    <class>pe.gob.mimp.sispoi.modelo.MetaPresupuestaria</class>
+    <class>pe.gob.mimp.sispoi.modelo.ObjetivoEstrategico</class>
+    <class>pe.gob.mimp.sispoi.modelo.Periodo</class>
+    <class>pe.gob.mimp.sispoi.modelo.Pliego</class>
+    <class>pe.gob.mimp.sispoi.modelo.Producto</class>
+    <class>pe.gob.mimp.sispoi.modelo.Programacion</class>
+    <class>pe.gob.mimp.sispoi.modelo.ProgramacionItem</class>
+    <class>pe.gob.mimp.sispoi.modelo.Provincia</class>
+    <class>pe.gob.mimp.sispoi.modelo.Sector</class>
+    <class>pe.gob.mimp.sispoi.modelo.TipoActividadProgramada</class>
+    <class>pe.gob.mimp.sispoi.modelo.TipoModificador</class>
+    <class>pe.gob.mimp.sispoi.modelo.TipoObjetivoEstrategico</class>
+    <class>pe.gob.mimp.sispoi.modelo.UnidadEjecutora</class>
+    <class>pe.gob.mimp.sispoi.modelo.UnidadMedida</class>
+    <class>pe.gob.mimp.sispoi.modelo.UnidadOrganica</class>
+    <class>pe.gob.mimp.sispoi.modelo.UnidadResponsable</class>
+    <class>pe.gob.mimp.sispoi.modelo.Verificacion</class>
+    <class>pe.gob.mimp.sispoi.modelo.ZonaInfluencia</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <validation-mode>NONE</validation-mode>
+    <properties/>
+  </persistence-unit>
+</persistence>

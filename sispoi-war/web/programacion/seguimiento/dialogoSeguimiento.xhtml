@@ -1,0 +1,237 @@
+<f:view contentType="text/html"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <script type="text/javascript">
+    </script>
+    <style type="text/css"/>
+
+    <h:panelGrid id="displaySeguimiento" columns="14" cellpadding="4" style="margin: auto;">
+        <p:fieldset style="padding: 1em; margin-bottom:0.5em;">
+            <h:panelGrid id="editarDisplay" columns="14" cellpadding="4" style="margin:1 auto;">
+                <p:fieldset  style="padding: 1em; margin-bottom:0.5em;">
+                    <div class="ui-grida  ui-grid-responsive">
+                        <div id="boxshadowinside">
+                            <div class="ui-grid-rowa">
+                                <div class="ui-grid-col-8a menuDiv">
+                                    <table cellspacing="5" >
+                                        <tr>
+                                            <td width="150"><h:outputLabel for="categoriaPresupuestal" value="Categoria Presupuestal: " /></td>
+                                            <td ><p:selectOneMenu id="categoriaPresupuestal" value="#{categoriaPresupuestalAdministrado.entidadSeleccionada}"  
+                                                                  style="width:200px;" converter="categoriaPresupuestalConvertidor" >
+                                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{categoriaPresupuestalAdministrado.entidades}" var="tipo"
+                                                                   itemLabel="#{tipo.txtCategoriaPresupuestal}" itemValue="#{tipo}" />
+                                                </p:selectOneMenu></td>
+                                            
+                                            <td width="150"><h:outputLabel for="producto" value="Producto: " /></td>
+                                            <td > <p:selectOneMenu  id="producto" value="#{productoAdministrado.entidadSeleccionada}" 
+                                                                    style="width:200px;" converter="productoConvertidor">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                                    <f:selectItems value="#{productoAdministrado.entidades}" var="tipo"
+                                                                   itemLabel="#{tipo.txtProducto}" itemValue="#{tipo}" />
+                                                </p:selectOneMenu></td>
+                                            
+                                            <td width="150"><h:outputLabel for="actividadProgramada" value="Actividad Programada: " /></td>
+                                            <td ><p:selectOneMenu id="actividadProgramada" value="#{actividadProgramadaAdministrado.entidadSeleccionada}" 
+                                                                  style="width:200px;" converter="actividadProgramadaConvertidor">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{actividadProgramadaAdministrado.entidades}" var="tipo"
+                                                                   itemLabel="#{tipo.txtActividadProgramada}" itemValue="#{tipo}" />
+                                                </p:selectOneMenu></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="150"><h:outputLabel for="funcion" value="Funcion: " /></td>
+                                            <td ><p:selectOneMenu id="funcion" value="#{funcionAdministrado.entidadSeleccionada}" 
+                                                                  style="width:200px;" converter="funcionConvertidor">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems  value="#{funcionAdministrado.entidades}" var="tipo"
+                                                                    itemLabel="#{tipo.txtFuncion}" itemValue="#{tipo}" />
+                                                </p:selectOneMenu></td>
+                                            
+                                            <td width="150"><h:outputLabel for="divisionFuncional" value="Division Funcional: " /></td>
+                                            <td ><p:selectOneMenu id="divisionFuncional" value="#{divisionFuncionalAdministrado.entidadSeleccionada}" 
+                                                                  style="width:200px;" converter="divisionFuncionalConvertidor">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{divisionFuncionalAdministrado.entidades}" var="tipo"
+                                                                   itemLabel="#{tipo.txtDivisionFuncional}" itemValue="#{tipo}" />
+                                                </p:selectOneMenu></td>
+                                            
+                                            <td width="150"><h:outputLabel for="grupoFuncional" value="Grupo Funcional: " /></td>
+                                            <td ><p:selectOneMenu id="grupoFuncional" value="#{grupoFuncionalAdministrado.entidadSeleccionada}" 
+                                                                  style="width:200px;" converter="grupoFuncionalConvertidor">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{grupoFuncionalAdministrado.entidades}" var="tipo"
+                                                                   itemLabel="#{tipo.txtGrupoFuncional}" itemValue="#{tipo}" />
+                                                </p:selectOneMenu></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="150"><h:outputLabel for="sector" value="Sector: " /></td>
+                                            <td ><p:selectOneMenu id="sector" value="#{sectorAdministrado.entidadSeleccionada}" 
+                                                                  style="width:200px;" converter="sectorConvertidor">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{sectorAdministrado.entidades}" var="tipo"
+                                                                   itemLabel="#{tipo.txtSector}" itemValue="#{tipo}" />
+                                                </p:selectOneMenu></td>
+                                            <td width="150"><h:outputLabel for="pliego" value="Pliego: " /></td>
+                                            <td ><p:selectOneMenu  id="pliego" value="#{pliegoAdministrado.entidadSeleccionada}" 
+                                                                   style="width:200px;" converter="pliegoConvertidor">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                                    <f:selectItems value="#{pliegoAdministrado.entidades}" var="tipo"
+                                                                   itemLabel="#{tipo.txtPliego}" itemValue="#{tipo}" />
+                                                </p:selectOneMenu ></td>
+                                            <td width="150"><h:outputLabel for="unidadEjecutora" value="Unidad Ejecutora:  " /></td>
+                                            <td ><p:selectOneMenu  id="unidadEjecutada" value="#{unidadEjecutoraAdministrado.entidadSeleccionada}" 
+                                                                   style="width:200px;" converter="unidadEjecutoraConvertidor">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                                    <f:selectItems value="#{unidadEjecutoraAdministrado.entidades}" var="tipo"
+                                                                   itemLabel="#{tipo.txtUnidadEjecutora}" itemValue="#{tipo}" />
+                                                </p:selectOneMenu ></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="150"><h:outputLabel for="objetivoEstrategicoGeneral" value="Objetivo Inst. General: " /></td>
+                                            <td  colspan="3"><p:selectOneMenu id="objetivoEstrategicoGeneral" value="#{objetivoEstrategicoAdministrado.entidadSeleccionada}" 
+                                                                              style="width:200px;" converter="objetivoEstrategicoConvertidor">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                                    <f:selectItems value="#{objetivoEstrategicoAdministrado.entidades}" var="tipo"
+                                                                   itemLabel="#{tipo.txtObjetivoEstrategico}" itemValue="#{tipo}" />
+                                                </p:selectOneMenu></td>
+                                            <td width="150"><h:outputLabel for="estado" value="Estado: " /></td>
+                                            <td ><p:selectOneMenu id="estado" value="#{estadoActProgramadaAdministrado.entidadSeleccionada}" 
+                                                                  style="width:200px;" converter="estadoActProgramadaConvertidor">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                                    <f:selectItems value="#{estadoActProgramadaAdministrado.entidades}" var="tipo"
+                                                                   itemLabel="#{tipo.txtEstadoActProgramada}" itemValue="#{tipo}" />
+                                                </p:selectOneMenu></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="150"><h:outputLabel for="objetivoEstrategicoEspecifico" value="Objetivo Inst. Especifico:" /></td>
+                                            <td  colspan="3">
+                                                <p:selectOneMenu id="objetivoEstrategicoEspecifico" value="#{objetivoEstrategicoAdministrado.entidadSeleccionada}" 
+                                                                              style="width:200px;" converter="objetivoEstrategicoConvertidor">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                                    <f:selectItems value="#{objetivoEstrategicoAdministrado.entidades}" var="tipo"
+                                                                   itemLabel="#{tipo.txtObjetivoEstrategico}" itemValue="#{tipo}" />
+                                                </p:selectOneMenu></td>
+                                            <td style="width:200px;"><h:outputLabel for="añoEjecucion" value="Año Ejecucion: " /></td>
+                                            <td ><p:selectOneMenu id="periodo" value="#{periodoAdministrado.entidadSeleccionada}" 
+                                                                  style="width:200px;" converter="periodoConvertidor">
+                                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                                    <f:selectItems value="#{periodoAdministrado.entidades}" var="tipo"
+                                                                   itemLabel="#{tipo.txtPeriodo}" itemValue="#{tipo}" />
+                                                </p:selectOneMenu></td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <br></br>
+                                    <p:dataTable id="tablaCambioEstado" widgetVar="tabla"
+                                                 var="tablaCambioEstado" value="#{programacionAdministrado.entidadSeleccionada.atencionProgramacionList}" rows="10" >
+                                        <f:facet  name="header" >Cambios de Estado</f:facet>
+                                        <p:column headerText="Fecha" style="width: 140px;"> 
+                                            <h:outputText value="#{tablaCambioEstado.fecEdicion}" >
+                                                <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                                            </h:outputText>
+                                        </p:column>
+                                        
+                                        
+                                        <p:column headerText="Estado" filterBy="#{tablaCambioEstado.estadoProgramacion}" filterMatchMode="contains" style=" text-align:center">
+                                            <f:facet name="filter">
+                                                <p:selectOneMenu onchange="PF('tablaCambioEstado').filter()" style="width:70px">
+                                                    <f:selectItem itemLabel="Todos" itemValue="" noSelectionOption="true"/>
+                                                    <f:selectItem itemLabel="Registrado" itemValue="0" />
+                                                    <f:selectItem itemLabel="Aprobado" itemValue="1" />
+                                                    <f:selectItem itemLabel="Observado" itemValue="2" />
+                                                    <f:selectItem itemLabel="Pendiente Aprobadcion" itemValue="3" />
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                            <h:outputText value="#{tablaCambioEstado.estadoProgramacion.txtEtdoProgramacion}" />
+                                        </p:column>
+                                        <p:column headerText="Usuario" > 
+                                            <h:outputText value="#{usuarioAdministrado.getEntidad(tablaCambioEstado.nidUsuario).txtUsuario}" />
+                                        </p:column>
+                                        <p:column headerText="Observacion" ></p:column>
+                                    </p:dataTable>
+                                    <br></br>
+                                    <p:dataTable id="tablaSustentoActividades" widgetVar="tabla"
+                                                 var="tablaSustentoActividades" value="#{programacionAdministrado.entidadSeleccionada}" rows="10" >
+                                        <f:facet  name="header" >Sustento Actividades</f:facet>
+                                        <p:column> <h:outputText value="#{tablaSustentoActividades.txtSustento}" /></p:column>
+                                    </p:dataTable>
+                                    <p:dataTable id="tablaLogroObtener" widgetVar="tabla"
+                                                 var="tablaLogroObtener" value="#{programacionAdministrado.entidadSeleccionada.logroList}" rows="10" >
+                                        <f:facet  name="header" > Logros a obtener </f:facet>
+                                        <p:column headerText="Nro"> <h:outputText value="#{tablaLogroObtener.nidLogro}" /></p:column>
+                                        <p:column headerText="Cantidad"> <h:outputText value="#{tablaLogroObtener.flgActivo}" /></p:column>
+                                        <p:column headerText="Logro"> <h:outputText value="#{tablaLogroObtener.txtLogro}" /></p:column>
+                                    </p:dataTable>
+                                    <p:dataTable id="tablaItemsPropueta" widgetVar="tabla"
+                                                 var="tablaItemsPropueta" value="#{programacionItemAdministrado.entidades}" rows="10" >
+                                        <f:facet  name="header" >Items de la propuesta</f:facet>
+                                        <p:column style="width:16px"><p:rowToggler /></p:column>
+                                        <p:column headerText="Meta presupuestaria" ><h:outputText value="#{tablaItemsPropueta.metaPresupuestaria.txtMetaPresupuestaria}" /></p:column>
+                                        <p:column headerText="Unidad Organica" ><h:outputText value="#{tablaItemsPropueta.unidadOrganica.txtUnidadOrganica}" /></p:column>
+                                        <p:rowExpansion>
+                                            <p:dataTable id="tablaItemsAE" widgetVar="tabla" var="item" value="#{actividadProductoAdministrado.entidades}" rows="10" >
+                                                <p:column style="width:16px"> <p:rowToggler /> </p:column>
+                                                <p:column headerText="AE" ><h:outputText value="#{item.txtActividadProducto}" /></p:column>
+                                                <p:rowExpansion>
+                                                    <p:dataTable id="tablaActividadProgramada" widgetVar="tabla" var="actividadprogramada" value="#{actividadProgramadaAdministrado.entidades}" rows="10" >
+                                                        <p:column style="width:16px"><p:rowToggler /></p:column>
+                                                        <p:column headerText="Actividad Programada" ><h:outputText value="#{actividadprogramada.txtActividadProgramada}" /></p:column>
+                                                        <p:column headerText="Monto Asignado" ><h:outputText value="#{actividadprogramada.txtCodigoActProgramada}" /></p:column>
+                                                        <p:rowExpansion>
+                                                            <p:dataTable id="tablaActividadProgramadaDetalle" widgetVar="tabla" var="tablaActividadProgramadaDetalle" value="#{detalleActProgramadaAdministrado.entidades}" rows="12" >
+                                                                <p:columnGroup type="header">
+                                                                    <p:row><p:column rowspan="3" headerText="Mes" /></p:row>
+                                                                    <p:row>
+                                                                        <p:column colspan="3" headerText="Fisico" />
+                                                                        <p:column colspan="3" headerText="Financiero" />
+                                                                    </p:row>
+                                                                    <p:row>
+                                                                        <p:column headerText="Programado"/>
+                                                                        <p:column headerText="Ejecutado" />
+                                                                        <p:column headerText="% Ejecutado" />
+                                                                        <p:column headerText="Programado" />
+                                                                        <p:column headerText="Ejecutado" />
+                                                                        <p:column headerText="% Ejecutado" />
+                                                                    </p:row>
+                                                                </p:columnGroup>
+                                                                <p:column> <h:outputText value="#{tablaActividadProgramadaDetalle.mes.txtMes}" /></p:column>
+                                                                <p:column> <h:outputText value="S/. #{tablaActividadProgramadaDetalle.flgActivo}" /></p:column>
+                                                                <p:column> <h:outputText value="S/. #{tablaActividadProgramadaDetalle.flgActivo}" /></p:column>
+                                                                <p:column> <h:outputText value="% #{tablaActividadProgramadaDetalle.flgActivo}" /> </p:column>
+                                                                <p:column><h:outputText value="S/. #{tablaActividadProgramadaDetalle.flgActivo}" /></p:column>
+                                                                <p:column> <h:outputText value="S/. #{tablaActividadProgramadaDetalle.flgActivo}" /></p:column>
+                                                                <p:column> <h:outputText value="% #{tablaActividadProgramadaDetalle.flgActivo}" /></p:column>
+                                                                <p:columnGroup type="footer">
+                                                                    <p:row>
+                                                                        <p:column style="text-align:right" footerText="Total:" />
+                                                                        <p:column footerText="Meta anual S/. " />
+                                                                        <p:column footerText="S/. " />
+                                                                        <p:column footerText="% " />
+                                                                        <p:column footerText="Meta anual S/. " />
+                                                                        <p:column footerText="S/. " />
+                                                                        <p:column footerText="% " />
+                                                                    </p:row>
+                                                                </p:columnGroup>
+                                                            </p:dataTable>
+                                                        </p:rowExpansion>
+                                                    </p:dataTable>
+                                                </p:rowExpansion>
+                                            </p:dataTable>
+                                        </p:rowExpansion>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p:fieldset>
+            </h:panelGrid>
+            <p:commandButton id="editarCommandButtonSave" value="Aceptar" update=":formTable" onclick="PF('editarDialogo').hide();"
+                             icon="ui-icon-disk" actionListener="#{programacionAdministrado.editar(entidadSeleccionada)}"/>
+            <p:commandButton id="editarCommandButtonCancel" value="Cancelar" onclick="PF('editarDialogo').hide();" type="button" icon="ui-icon-cancel"/>
+        </p:fieldset>                
+    </h:panelGrid>
+</f:view>

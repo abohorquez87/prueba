@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+   	xmlns:h="http://java.sun.com/jsf/html"
+   	xmlns:ui="http://java.sun.com/jsf/facelets"
+    	xmlns:p="http://primefaces.org/ui">
+<h:head>
+   <title>SISPOI</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <h:outputStylesheet name="css/screen.css" />
+   <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/gfx/logo_sispoi.png"/>
+</h:head>
+<h:body>
+
+<div id="usercontent">
+    <img class="logosistema1" src="${facesContext.externalContext.requestContextPath}/resources/gfx/mimp.png"/> 
+    <img class="logosistema2" src="${facesContext.externalContext.requestContextPath}/resources/gfx/sispoi.png"/>
+    <ul id="nav" class="user">
+        <h:form>
+            <p:commandLink id="logout" actionListener="#{usuarioAdministrado.logout}" oncomplete="logout(xhr, status, args)">
+                <span class="userico" ></span>
+                <h:outputText value="#{usuarioAdministrado.entidadSeleccionada.txtUsuario}" />
+            </p:commandLink>
+            <p:tooltip for="logout" value="#{usuarioAdministrado.entidadSeleccionada.persona.txtNombres}" />
+        </h:form>
+    </ul>
+</div>
+<ul id="nav">
+	<li><a href="#">PROPUESTAS</a>
+            <ul>
+                <li><a href="/sispoi-war/propuestas/propuestas/propuestas.jsf">PROPUESTAS</a></li>
+            </ul>
+	</li>
+        <li><a href="#">PROGRAMACION</a>
+            <ul>
+                <li><a href="/sispoi-war/programacion/actividades/actividades.jsf">ACTIVIDADES</a></li>
+                <li><a href="/sispoi-war/programacion/seguimiento/seguimiento.jsf">SEGUIMIENTO</a></li>
+            </ul>
+	</li>
+        <li><a href="#">POI</a>
+            <ul>
+                <li><a href="/sispoi-war/poi/poi/poi.jsf">POI</a></li>
+            </ul>
+	</li>
+
+	<li><a href="#">MANTENIMIENTO</a>
+		<ul>
+			<li><a href="#">UBICABILIDAD<span class="flecha">&#9658;</span></a>
+                            <ul>
+                                <li><a href="/sispoi-war/mantenimiento/departamento/departamento.jsf">DEPARTAMENTO</a></li>
+                                <li><a href="/sispoi-war/mantenimiento/distrito/distrito.jsf">DISTRITO</a></li>
+                                <li><a href="/sispoi-war/mantenimiento/provincia/provincia.jsf">PROVINCIA</a></li>
+                            </ul>
+			</li>
+                        <li><a href="#">UNIDAD<span class="flecha">&#9658;</span></a>
+                            <ul>
+                                <li><a href="/sispoi-war/mantenimiento/unidadEjecutora/unidadEjecutora.jsf">UNIDAD EJECUTORA</a></li>
+                                <li><a href="/sispoi-war/mantenimiento/unidadOrganica/unidadOrganica.jsf">UNIDAD ORGANICA</a></li>
+                                <li><a href="/sispoi-war/mantenimiento/unidadResponsable/unidadResponsable.jsf">UNIDAD RESPONSABLE</a></li>	
+                            </ul>
+			</li>
+                        <li><a href="#">ORGANIZACION<span class="flecha">&#9658;</span></a>
+                            <ul>
+                                <li><a href="/sispoi-war/mantenimiento/categoriaPresupuestal/categoriaPresupuestal.jsf">CATEGORIA PRESUPUESTAL</a></li>
+                                <li><a href="/sispoi-war/mantenimiento/producto/producto.jsf">PRODUCTO</a></li>
+                                <li><a href="/sispoi-war/mantenimiento/actividadProducto/actividadProducto.jsf">ACTIVIDAD PRODUCTO</a></li>	
+                                <li><a href="/sispoi-war/mantenimiento/funcion/funcion.jsf">FUNCION</a></li>	
+                                <li><a href="/sispoi-war/mantenimiento/divisionFuncional/divisionFuncional.jsf">DIVISION FUNCIONAL</a></li>	
+                                <li><a href="/sispoi-war/mantenimiento/grupoFuncional/grupoFuncional.jsf">GRUPO FUNCIONAL</a></li>	
+                                <li><a href="/sispoi-war/mantenimiento/metaPresupuestaria/metaPresupuestaria.jsf">META PRESUPUESTARIA</a></li>				
+                            </ul>
+			</li>
+                        <li><a href="#">TIPOS<span class="flecha">&#9658;</span></a>
+                            <ul>
+                                <li><a href="/sispoi-war/mantenimiento/categoriaPresupuestal/categoriaPresupuestal.jsf">TIPO ACTIVIDAD PROGRAMADA</a></li>
+                                <li><a href="/sispoi-war/mantenimiento/producto/producto.jsf">TIPO MODIFICADOR</a></li>
+                                <li><a href="/sispoi-war/mantenimiento/actividadProducto/actividadProducto.jsf">MEDIO</a></li>	
+                                <li><a href="/sispoi-war/mantenimiento/funcion/funcion.jsf">UNIDAD MEDIDA</a></li>	
+                                <li><a href="/sispoi-war/mantenimiento/divisionFuncional/divisionFuncional.jsf">TIPO OBJETIVO ESTRATEGICO</a></li>	
+                            </ul>
+			</li>
+			<li><a href="/sispoi-war/mantenimiento/estadoActProgramada/estadoActProgramada.jsf">ESTADO ACTIVIDAD PROGRAMADA</a></li>
+                        <li><a href="/sispoi-war/mantenimiento/mes/mes.jsf">MES</a></li>
+                        <li><a href="/sispoi-war/mantenimiento/periodo/periodo.jsf">PERIODO</a></li>
+                        <li><a href="/sispoi-war/mantenimiento/pliego/pliego.jsf">PLIEGO</a></li>
+                        <li><a href="/sispoi-war/mantenimiento/sector/sector.jsf">SECTOR</a></li>
+                        <li><a href="/sispoi-war/mantenimiento/estadoProgramacion/estadoProgramacion.jsf">ESTADO PROGRAMACION</a></li>
+		</ul>
+	</li>
+</ul>
+
+<div id="content" >
+   <ui:insert name="content">
+        [Template content will be inserted here]
+   </ui:insert>
+</div>
+
+<script type="text/javascript">   
+    function logout(xhr, status, args) {
+    setTimeout(function() {
+      window.location = '/sispoi-war/login.jsf';
+    }, 500);
+  }
+</script>        
+        
+</h:body>
+</html>
+

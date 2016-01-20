@@ -1,0 +1,39 @@
+<f:view contentType="text/html"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <script type="text/javascript">
+    </script>
+    <style type="text/css"/>
+
+    <h:panelGrid id="displayActividadProducto" columns="14" cellpadding="4" style="margin: auto;">
+        <p:fieldset style="padding: 1em; margin-bottom:0.5em;">
+            <div class="ui-grid  ui-grid-responsive">
+                <div class="ui-grid-row">
+                <div class="ui-grid-col-8 menuDiv">
+                    <p:outputLabel for="verDescripcion" value="Descripcion: " />
+                    <h:inputText id="verDescripcion" value="#{actividadProductoAdministrado.entidadSeleccionada.txtActividadProducto}"/>
+                    <p:outputLabel for="producto" value="Producto" /> <br></br>	
+                    <p:selectOneMenu id="producto" 
+                                     value="#{productoAdministrado.entidadSeleccionada}"
+                                     converter="productoConvertidor"><!-- --> <br></br>
+                        <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{productoAdministrado.entidades}" 
+                                       var="producto" 
+                                       itemValue="#{producto}"
+                                       itemLabel="#{producto.txtProducto}" />  
+                    </p:selectOneMenu> <br></br>
+                    
+                    <p:outputLabel for="verEstado" value="Estado: " />
+                    <p:selectOneMenu id="verEstado" style="width:150px" value="#{productoAdministrado.entidadSeleccionada.flgActivo}">
+                        <f:selectItem itemLabel="Activo" itemValue="1" noSelectionOption="true" />
+                        <f:selectItem itemLabel="Inactivo" itemValue="0" noSelectionOption="false" />
+                    </p:selectOneMenu>
+                </div>
+                </div>
+            </div>
+        </p:fieldset>                
+    </h:panelGrid>
+
+</f:view>

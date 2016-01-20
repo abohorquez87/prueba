@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:body >
+            <ui:composition template="/WEB-INF/templates/default.xhtml">
+                <ui:define name="content">
+                    <h1>Estado Programacion</h1>
+
+                    <h:form id="formularioPrincipal">
+                        <p:growl id="mensajes" showDetail="true" />
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                        
+                        <div class="innerLR">
+                            <div class="widget">
+
+                                <p:fieldset legend="Filtros/Opciones:" style="padding: 1em; margin-bottom:0.5em;">
+                                    <div class="ui-grid  ui-grid-responsive">
+                                        <div class="ui-grid-row">
+                                            <div class="ui-grid-col-12 contentDiv"></div>
+                                            <div class="ui-grid-col-1 sidebarDiv">
+                                                <p:commandButton id="botonCrearEstadoProgramacion" value="Nuevo" update=":formularioCrearEstadoProgramacion" oncomplete="PF('dialogoCrearEstadoProgramacion').show();"  title="Nuevo" icon="ui-icon-plus"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p:fieldset>
+
+                                <p:dataTable id="tablaEstadoProgramacions" widgetVar="tablaEstadoProgramacions" var="item" value="#{estadoProgramacionAdministrado.entidades}" rows="10" paginator="true" rowsPerPageTemplate="5,10,15"
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    rowStyleClass="#{item.flgActivo eq 0 ? 'colored' : null} ">
+
+                                    <p:column headerText="ACCIONES" style="width: 140px;">                                       	                                
+                                        <p:commandButton value="" update=":formularioVerEstadoProgramacion" oncomplete="PF('dialogoVerEstadoProgramacion').show();"  title="Ver" icon="ui-icon-search">
+                                            <f:setPropertyActionListener value="#{item}" target="#{estadoProgramacionAdministrado.entidadSeleccionada}"/>
+                                        </p:commandButton>
+                                        <p:commandButton value="" update=":formularioEditarEstadoProgramacion" oncomplete="PF('dialogoEditarEstadoProgramacion').show();"  title="Editar" icon="ui-icon-pencil">
+                                            <f:setPropertyActionListener value="#{item}" target="#{estadoProgramacionAdministrado.entidadSeleccionada}"/>
+                                        </p:commandButton>            
+                                                                                
+                                        <p:commandButton value="" update=":formularioPrincipal" actionListener="#{estadoProgramacionAdministrado.anular(item)}" title="Anular" icon="ui-icon-trash">
+                                            <p:confirm header="Confirmacion" message="Se anulara el estadoProgramacion seleccionado, desea continuar?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                    </p:column>
+
+                                    <p:column headerText="ID" filterBy="#{item.nidEtdoProgramacion}" filterMatchMode="contains">
+                                        <h:outputText value="#{item.nidEtdoProgramacion}" />
+                                    </p:column>
+
+                                    <p:column headerText="DESCRIPCION" filterBy="#{item.txtEtdoProgramacion}" filterMatchMode="contains">
+                                        <h:outputText value="#{item.txtEtdoProgramacion}" />
+                                    </p:column>
+
+                                    <p:column headerText="ESTADO" filterBy="#{item.flgActivo}" filterMatchMode="contains">
+                                        <f:facet name="filter">
+                                            <p:selectOneMenu onchange="PF('tablaEstadoProgramacions').filter()" >
+                                                <f:selectItem itemLabel="Todos" itemValue="" noSelectionOption="true"/>
+                                                <f:selectItem itemLabel="Activo" itemValue="1" />
+                                                <f:selectItem itemLabel="Inactivo" itemValue="0" />
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                        <h:outputText value="#{item.flgActivo != 1? 'Inactivo':'Activo'}">
+                                            <f:converter converterId="javax.faces.Character" />                                    
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="MODIFICADOR" >
+                                        <h:outputText value="#{item.nidUsuario}" />
+                                    </p:column>
+
+                                    <p:column headerText="PC" >
+                                        <h:outputText value="#{item.txtPc}" />
+                                    </p:column>
+
+                                    <p:column headerText="IP" >
+                                        <h:outputText value="#{item.txtIp}" />
+                                    </p:column>
+
+                                    <p:column headerText="FECHA EDICION" >                                    
+                                        <h:outputText value="#{item.fecEdicion}" >
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText>
+                                    </p:column> 
+
+                                </p:dataTable>
+                            </div>
+                        </div>	
+                    </h:form> 
+
+                    <h:form id="formularioCrearEstadoProgramacion">
+                        <p:dialog modal="true" widgetVar="dialogoCrearEstadoProgramacion" header="Crear Estado Programacion" closable="true" closeOnEscape="true" width="250px" height="200px">
+                            <ui:include src="dialogoEstadoProgramacion.xhtml"/>
+                            <p:commandButton id="botonCrearEstadoProgramacionCrear" value="Aceptar" update=":formularioPrincipal" onclick="PF('dialogoCrearEstadoProgramacion').hide();"  title="Realiza la creacion" 
+                                icon="ui-icon-disk" actionListener="#{estadoProgramacionAdministrado.crear(estadoProgramacionAdministrado.entidadSeleccionada)}"/>	
+                            <p:commandButton id="botonCrearEstadoProgramacionCancelar" value="Cancelar" onclick="PF('dialogoCrearEstadoProgramacion').hide();" type="button" icon="ui-icon-cancel" title="Cancela la creacion"/>
+                        </p:dialog>
+                    </h:form>
+                    
+                    <h:form id="formularioVerEstadoProgramacion">
+                        <p:dialog modal="true" widgetVar="dialogoVerEstadoProgramacion" header="Ver Actividad Producto" closable="true" closeOnEscape="true" width="250px" height="200px">
+                            <ui:include src="dialogoEstadoProgramacion.xhtml"/>
+                            <p:commandButton id="btnEditarEstadoProgramacionCancelar" value="Cancelar" onclick="PF('dialogoVerEstadoProgramacion').hide();" type="button" icon="ui-icon-cancel" title="Cierra la ventana"/>
+                        </p:dialog>
+                    </h:form>
+                    
+                    <h:form id="formularioEditarEstadoProgramacion">
+                        <p:dialog modal="true" widgetVar="dialogoEditarEstadoProgramacion" header="Editar Actividad Producto" closable="true" closeOnEscape="true" width="250px" height="200px">
+                            <ui:include src="dialogoEstadoProgramacion.xhtml"/>
+                            <p:commandButton id="botonEditarEstadoProgramacionEditar" value="Editar" update=":formularioPrincipal" onclick="PF('dialogoEditarEstadoProgramacion').hide();"  title="Realiza la edicion" 
+                                icon="ui-icon-disk" actionListener="#{estadoProgramacionAdministrado.editar(estadoProgramacionAdministrado.entidadSeleccionada)}"/>	
+                            <p:commandButton id="btnEditarEstadoProgramacionCancelar" value="Cancelar" onclick="PF('dialogoEditarEstadoProgramacion').hide();" type="button" icon="ui-icon-cancel" title="Cancela la edicion"/>
+                        </p:dialog>
+                    </h:form>
+
+                </ui:define>           
+            </ui:composition>
+        </h:body>
+    </f:view>
+</html>

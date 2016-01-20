@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:body >
+            <ui:composition template="/WEB-INF/templates/default.xhtml">
+                <ui:define name="content">
+                    <div class="ui-fluid">
+                    <h1>Bandeja Propuestas</h1>
+                    <h:form id="formTable">
+                        <p:growl id="mensajes" showDetail="true" />
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                        
+                        <div class="innerLR">
+                            <div class="widget">
+
+                                <p:fieldset legend="Filtros/Opciones:" style="padding: 1em; margin-bottom:0.5em;">
+                                    <div class="ui-grid  ui-grid-responsive">
+                                        <div class="ui-grid-row">
+                                            <div class="ui-grid-col-1 contentDiv margintop">
+                                                <h:outputText value="Pliego:" class="paddingleft"/>
+                                            </div>
+                                            <div class="ui-grid-col-2 contentDiv">
+                                                <p:selectOneMenu id="pliego"  
+                                                        value="#{pliegoAdministrado.entidadSeleccionada}"
+                                                        style="width:150px" 
+                                                        converter="pliegoConvertidor">
+                                                    <f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{pliegoAdministrado.entidades}" 
+                                                        var="pliego" 
+                                                        itemValue="#{pliego}"
+                                                        itemLabel="#{pliego.txtPliego}"/>  
+                                                </p:selectOneMenu>
+                                            </div>
+                                            <div class="ui-grid-col-1 contentDiv margintop">
+                                                <h:outputText value="Unidad Ejecutora:" />
+                                            </div>
+                                            <div class="ui-grid-col-2 contentDiv">
+                                                <p:selectOneMenu id="unidadEjecutora" 
+                                                        value="#{unidadEjecutoraAdministrado.entidadSeleccionada}"
+                                                        style="width:150px" 
+                                                        converter="unidadEjecutoraConvertidor">
+                                                    <f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{unidadEjecutoraAdministrado.entidades}" 
+                                                        var="unidad" 
+                                                        itemValue="#{unidad}"
+                                                        itemLabel="#{unidad.txtUnidadEjecutora}"/>  
+                                                </p:selectOneMenu>
+                                            </div>
+                                            <div class="ui-grid-col-1 contentDiv margintop">
+                                                <h:outputText value="Estado:" class="paddingleft"/>
+                                            </div>
+                                            <div class="ui-grid-col-2 contentDiv">
+                                                <p:selectOneMenu id="estado" 
+                                                                 value="#{estadoProgramacionAdministrado.entidadSeleccionada}"
+                                                        style="width:150px" 
+                                                        converter="estadoProgramacionConvertidor">
+                                                    <f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{estadoProgramacionAdministrado.entidades}" 
+                                                        var="estado" 
+                                                        itemValue="#{estado}"
+                                                        itemLabel="#{estado.txtEtdoProgramacion}"/>  
+                                                </p:selectOneMenu>
+                                            </div>
+                                            <div class="ui-grid-col-1 contentDiv margintop">
+                                                <h:outputText value="Año Ejecucion:" />
+                                            </div>
+                                            <div class="ui-grid-col-2 contentDiv">
+                                                <p:selectOneMenu id="periodo" 
+                                                                 value="#{periodoAdministrado.entidadSeleccionada}"
+                                                        style="width:150px" 
+                                                        converter="periodoConvertidor">
+                                                    <f:selectItem itemLabel="Todos" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{periodoAdministrado.entidades}" 
+                                                        var="periodo" 
+                                                        itemValue="#{periodo}"
+                                                        itemLabel="#{periodo.txtPeriodo}"/>  
+                                                </p:selectOneMenu>
+                                            </div>
+                                            
+                                        </div> 
+                                        
+                                        <div class="ui-grid-row">
+                                            <div class="ui-grid-col-12 contentDiv" align="right">
+                                                <p:commandButton value="Buscar" update=":formTable" title="Buscar" icon="ui-icon-search"/>
+                                                <p:commandButton value="Generar" update=":formGenerarPropuestas" oncomplete="PF('dialogoGenerarPropuestas').show();"  title="Nuevo" icon="ui-icon-plus" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p:fieldset>
+                                
+                                <p:dataTable id="tabla" widgetVar="tabla" var="item" value="#{actividadProductoManagedBean.entities}" rows="10" paginator="true" paginatorPosition="bottom" 
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    rowsPerPageTemplate="5,10,15" rowStyleClass="#{item.flgActivo eq 0 ? 'colored' : null} ">
+
+                                    <p:column headerText="ACCIONES" style="width: 140px;">                                       	                                
+                                            <p:commandButton id="commandButtonView" value="" update=":verForm:verDisplay" oncomplete="PF('verDialogo').show();"  title="Ver"
+                                            icon="ui-icon-search">
+                                                <f:setPropertyActionListener value="#{item}" target="#{actividadProductoManagedBean.selectedEntity}"/>
+                                            </p:commandButton>
+
+                                            <p:commandButton id="commandButtonEdit" value="" update=":editarForm:editarDisplay" oncomplete="PF('editarDialogo').show();"  title="Editar"
+                                            icon="ui-icon-pencil">
+                                                <f:setPropertyActionListener value="#{item}" target="#{actividadProductoManagedBean.selectedEntity}"/>
+                                            </p:commandButton>            
+
+                                            <p:commandButton id="commandButtonDelete" value="" update=":anularForm:anularDisplay" oncomplete="PF('anularDialogo').show();"  title="Anular"
+                                            icon="ui-icon-trash">
+                                                <f:setPropertyActionListener value="#{item}" target="#{actividadProductoManagedBean.selectedEntity}"/>
+                                            </p:commandButton>
+                                    </p:column>
+
+                                    <p:column headerText="AÑO EJECUCION" >
+                                    </p:column>
+                                     <p:column headerText="UNIDAD EJECUTORA" >
+                                    </p:column>
+                                     <p:column headerText="ACTIVO" >
+                                    </p:column>
+                                </p:dataTable>
+
+                            </div>
+                        </div>	
+                    </h:form> 
+                    
+                    <h:form id="formGenerarPropuestas">
+                        <p:dialog modal="true" widgetVar="dialogoGenerarPropuestas" header="Generar Propuestas" closable="true" closeOnEscape="true" resizable="false" width="1150px" height="325px">
+                            <ui:include src="dialogoGenerarPropuestas.xhtml"/>
+                            <p:commandButton value="Generar" update=":formGenerarPropuestas" title="Realiza la generacion" 
+                                icon="ui-icon-plus" actionListener="#{programacionAdministrado.generar(periodoAdministrado.entidadSeleccionada)}">
+                                <p:confirm header="Confirmacion" message="Se generaran propuestas vacias, desea continuar?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:commandButton value="Cancelar" onclick="PF('dialogoGenerarPropuestas').hide();" type="button" icon="ui-icon-cancel" title="Cancela la creacion"/>
+                        </p:dialog>
+                    </h:form>
+                   
+                    </div>
+                </ui:define>           
+            </ui:composition>
+        </h:body>
+    </f:view>
+</html>
