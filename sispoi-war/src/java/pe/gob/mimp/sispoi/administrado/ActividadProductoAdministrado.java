@@ -18,7 +18,7 @@ import pe.gob.mimp.sispoi.fachada.ActividadProductoFacadeLocal;
 import pe.gob.mimp.sispoi.modelo.Producto;
 import pe.gob.mimp.sispoi.modelo.ActividadProducto;
 import pe.gob.mimp.sispoi.util.Util;
-
+//wee
 /**
  *
  * @author desarrollador
